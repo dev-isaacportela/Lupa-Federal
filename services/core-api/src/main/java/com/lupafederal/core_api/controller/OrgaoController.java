@@ -2,11 +2,11 @@ package com.lupafederal.core_api.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.lupafederal.core_api.dto.request.CreateOrgaoRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
-import com.lupafederal.core_api.dto.OrgaoResponse;
+import com.lupafederal.core_api.dto.response.OrgaoResponse;
 import com.lupafederal.core_api.service.OrgaoService;
 
 @RestController
@@ -22,5 +22,11 @@ public class OrgaoController {
     @GetMapping
     public List<OrgaoResponse> listar() {
         return orgaoService.listar();
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public OrgaoResponse criar(@RequestBody CreateOrgaoRequest request) {
+        return orgaoService.criar(request);
     }
 }

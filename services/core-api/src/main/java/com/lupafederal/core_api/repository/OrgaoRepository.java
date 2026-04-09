@@ -9,4 +9,6 @@ import com.lupafederal.core_api.model.Orgao;
 public interface OrgaoRepository extends JpaRepository<Orgao, Integer> {
 
     List<Orgao> findAllByOrderByNomeAsc();
+
+    boolean existsByCodigoSiafi(String codigoSiafi);
 }

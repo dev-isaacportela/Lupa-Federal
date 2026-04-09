@@ -1,4 +1,4 @@
-package com.lupafederal.core_api.dto;
+package com.lupafederal.core_api.dto.response;
 
 public record OrgaoResponse(
         Integer id,
