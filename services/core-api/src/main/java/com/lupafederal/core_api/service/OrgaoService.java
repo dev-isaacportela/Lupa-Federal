@@ -31,7 +31,7 @@ public class OrgaoService {
 
     public OrgaoResponse criar(CreateOrgaoRequest request) {
         if(orgaoRepository.existsByCodigoSiafi(request.codigoSiafi())) {
-            throw new RuntimeException("Código SIAFI já cadastrado");
+            throw new RuntimeException("Código SIAFI já cadastrado!");
         }
 
         Orgao orgao = new Orgao();

@@ -24,6 +24,8 @@ public class Orgao {
     @Column(length = 10)
     private String sigla;
 
+    public Orgao() {}
+
     public Integer getId() {
         return id;
     }
