@@ -1,0 +1,57 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: lupa-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-lupa_federal}
+      POSTGRES_USER: ${POSTGRES_USER:-lupa}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lupa}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - lupa_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    container_name: lupa-redis
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    command: ["redis-server", "--appendonly", "no"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  core-api:
+    build:
+      context: ../services/core-api
+      dockerfile: Dockerfile
+    container_name: lupa-core-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:-lupa_federal}
+      POSTGRES_USER: ${POSTGRES_USER:-lupa}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lupa}
+      REDIS_HOST: redis
+      REDIS_PORT: ${REDIS_PORT:-6379}
+    ports:
+      - "8080:8080"
+
+
+volumes:
+  lupa_postgres_data:
