@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.lupafederal.core_api.dto.OrgaoResponse;
+import com.lupafederal.core_api.dto.response.OrgaoResponse;
+import com.lupafederal.core_api.dto.request.CreateOrgaoRequest;
+import com.lupafederal.core_api.model.Orgao;
 import com.lupafederal.core_api.repository.OrgaoRepository;
 
 @Service
@@ -26,4 +28,24 @@ public class OrgaoService {
                         orgao.getSigla()))
                 .toList();
     }
+
+    public OrgaoResponse criar(CreateOrgaoRequest request) {
+        if(orgaoRepository.existsByCodigoSiafi(request.codigoSiafi())) {
+            throw new RuntimeException("Código SIAFI já cadastrado");
+        }
+
+        Orgao orgao = new Orgao();
+        orgao.setCodigoSiafi(request.codigoSiafi());
+        orgao.setNome(request.nome());
+        orgao.setSigla(request.sigla());
+
+        Orgao salvo = orgaoRepository.save(orgao);
+
+        return new OrgaoResponse(
+                salvo.getId(),
+                salvo.getCodigoSiafi(),
+                salvo.getNome(),
+                salvo.getSigla());
+    }
+
 }
