@@ -21,20 +21,32 @@ CREATE TABLE IF NOT EXISTS fornecedores (
 );
 
 CREATE TABLE IF NOT EXISTS agentes_politicos (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(255) NOT NULL,
-    cpf_mascarado VARCHAR(20),
-    id_orgao INTEGER REFERENCES orgaos(id)
+  id SERIAL PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  cpf_mascarado VARCHAR(20),
+  id_orgao INTEGER NOT NULL,
+  CONSTRAINT fk_agentes_orgao
+    FOREIGN KEY (id_orgao) REFERENCES orgaos(id)
+    ON DELETE RESTRICT
 );
 
 CREATE TABLE IF NOT EXISTS despesas (
-    id SERIAL PRIMARY KEY,
-    id_agente INTEGER REFERENCES agentes_politicos(id),
-    id_fornecedor INTEGER REFERENCES fornecedores(id),
-    id_categoria INTEGER REFERENCES categorias_despesa(id),
-    data_emissao DATE NOT NULL,
-    valor DECIMAL(15, 2) NOT NULL,
-    numero_documento VARCHAR(50)
+  id SERIAL PRIMARY KEY,
+  id_agente INTEGER NOT NULL,
+  id_fornecedor INTEGER NOT NULL,
+  id_categoria INTEGER NOT NULL,
+  data_emissao DATE NOT NULL,
+  valor DECIMAL(15, 2) NOT NULL,
+  numero_documento VARCHAR(50),
+  CONSTRAINT fk_despesas_agente
+    FOREIGN KEY (id_agente) REFERENCES agentes_politicos(id)
+    ON DELETE RESTRICT,
+  CONSTRAINT fk_despesas_fornecedor
+    FOREIGN KEY (id_fornecedor) REFERENCES fornecedores(id)
+    ON DELETE RESTRICT,
+  CONSTRAINT fk_despesas_categoria
+    FOREIGN KEY (id_categoria) REFERENCES categorias_despesa(id)
+    ON DELETE RESTRICT
 );
 
 CREATE INDEX IF NOT EXISTS idx_agentes_politicos_id_orgao ON agentes_politicos(id_orgao);
