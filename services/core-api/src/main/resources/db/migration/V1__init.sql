@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS fornecedores (
 
 CREATE TABLE IF NOT EXISTS agentes_politicos (
   id SERIAL PRIMARY KEY,
+  id_portal_api BIGINT UNIQUE,
   nome VARCHAR(255) NOT NULL,
   cpf_mascarado VARCHAR(20),
   id_orgao INTEGER NOT NULL,
