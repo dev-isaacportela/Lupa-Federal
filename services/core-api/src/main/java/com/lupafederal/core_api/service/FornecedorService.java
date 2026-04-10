@@ -1,12 +1,15 @@
 package com.lupafederal.core_api.service;
 
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import com.lupafederal.core_api.dto.request.CreateFornecedorRequest;
 import com.lupafederal.core_api.dto.response.FornecedorResponse;
 import com.lupafederal.core_api.model.Fornecedor;
 import com.lupafederal.core_api.repository.FornecedorRepository;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class FornecedorService {
@@ -31,7 +34,7 @@ public class FornecedorService {
 
     public FornecedorResponse criar(CreateFornecedorRequest request){
         if(fornecedorRepository.existsByCnpjCpf(request.cnpjCpf())) {
-            throw new RuntimeException("Número de CNPJ já cadastrado!");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Número de CNPJ já cadastrado!");
         }
 
         Fornecedor fornecedor = new Fornecedor();
