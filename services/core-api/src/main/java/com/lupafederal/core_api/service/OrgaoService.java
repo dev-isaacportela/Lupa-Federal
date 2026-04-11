@@ -2,7 +2,9 @@ package com.lupafederal.core_api.service;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.lupafederal.core_api.dto.response.OrgaoResponse;
 import com.lupafederal.core_api.dto.request.CreateOrgaoRequest;
@@ -30,11 +32,15 @@ public class OrgaoService {
     }
 
     public OrgaoResponse criar(CreateOrgaoRequest request) {
+        if(orgaoRepository.existsByIdOrgaoApi(request.idOrgaoApi())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "ID da API para este Órgão já cadastrado!");
+        }
         if(orgaoRepository.existsByCodigoSiafi(request.codigoSiafi())) {
-            throw new RuntimeException("Código SIAFI já cadastrado!");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Código SIAFI já cadastrado!");
         }
 
         Orgao orgao = new Orgao();
+        orgao.setIdOrgaoApi(request.idOrgaoApi());
         orgao.setCodigoSiafi(request.codigoSiafi());
         orgao.setNome(request.nome());
         orgao.setSigla(request.sigla());

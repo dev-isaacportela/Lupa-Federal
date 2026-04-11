@@ -4,7 +4,9 @@ import com.lupafederal.core_api.dto.request.CreateCategoriaDespesaRequest;
 import com.lupafederal.core_api.dto.response.CategoriaDespesaResponse;
 import com.lupafederal.core_api.model.CategoriaDespesa;
 import com.lupafederal.core_api.repository.CategoriaDespesaRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -27,11 +29,15 @@ public class CategoriaDespesaService {
     }
 
     public CategoriaDespesaResponse criar(CreateCategoriaDespesaRequest request) {
+        if(categoriaDespesaRepository.existsByIdCategoriaDespesaApi(request.idCategoriaDespesaApi())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "ID da API para esta Categoria de Despesa já cadastrado!");
+        }
         if(categoriaDespesaRepository.existsByDescricaoIgnoreCase(request.descricao())) {
-            throw new RuntimeException("Despesa já cadastrada!");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Categoria de Despesa já cadastrada!");
         }
 
         CategoriaDespesa categoriaDespesa = new CategoriaDespesa();
+        categoriaDespesa.setIdCategoriaDespesaApi(request.idCategoriaDespesaApi());
         categoriaDespesa.setDescricao(request.descricao());
 
         CategoriaDespesa salvo = categoriaDespesaRepository.save(categoriaDespesa);
