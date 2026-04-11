@@ -3,6 +3,7 @@ SET search_path TO lupa;
 
 CREATE TABLE IF NOT EXISTS orgaos (
     id SERIAL PRIMARY KEY,
+    id_orgao_api BIGINT UNIQUE NOT NULL,
     codigo_siafi VARCHAR(10) UNIQUE NOT NULL,
     nome VARCHAR(255) NOT NULL,
     sigla VARCHAR(10)
@@ -10,11 +11,13 @@ CREATE TABLE IF NOT EXISTS orgaos (
 
 CREATE TABLE IF NOT EXISTS categorias_despesa (
     id SERIAL PRIMARY KEY,
+    id_categoria_despesa_api BIGINT UNIQUE NOT NULL,
     descricao VARCHAR(100) UNIQUE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS fornecedores (
     id SERIAL PRIMARY KEY,
+    id_fornecedor_api BIGINT UNIQUE NOT NULL,
     cnpj_cpf VARCHAR(20) UNIQUE NOT NULL,
     razao_social VARCHAR(255) NOT NULL,
     tipo_pessoa CHAR(1) CHECK (tipo_pessoa IN ('J', 'F'))
@@ -33,6 +36,7 @@ CREATE TABLE IF NOT EXISTS agentes_politicos (
 
 CREATE TABLE IF NOT EXISTS despesas (
   id SERIAL PRIMARY KEY,
+  id_despesa_api BIGINT UNIQUE NOT NULL,
   id_agente INTEGER NOT NULL,
   id_fornecedor INTEGER NOT NULL,
   id_categoria INTEGER NOT NULL,

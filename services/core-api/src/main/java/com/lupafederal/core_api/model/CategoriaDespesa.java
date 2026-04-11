@@ -12,13 +12,16 @@ public class CategoriaDespesa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "id_categoria_despesa_api", unique = true, nullable = false)
+    private Long idCategoriaDespesaApi;
+
     @Column(name = "descricao", nullable = false, length = 100, unique = true)
     private String descricao;
 
     public CategoriaDespesa() {}
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+    public void setIdCategoriaDespesaApi(Long idCategoriaDespesaApi) { this.idCategoriaDespesaApi = idCategoriaDespesaApi; }
+
+    public void setDescricao(String descricao) { this.descricao = descricao; }
 
 }

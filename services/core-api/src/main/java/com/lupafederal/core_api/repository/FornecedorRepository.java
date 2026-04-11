@@ -10,4 +10,6 @@ public interface FornecedorRepository extends JpaRepository<Fornecedor, Integer>
     List<Fornecedor> findAllByOrderByRazaoSocialAsc();
 
     boolean existsByCnpjCpf(String cnpjCpf);
+
+    boolean existsByIdFornecedorApi(Long idFornecedorApi);
 }

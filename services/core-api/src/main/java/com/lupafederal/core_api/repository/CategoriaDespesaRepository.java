@@ -9,4 +9,6 @@ public interface CategoriaDespesaRepository extends JpaRepository<CategoriaDespe
     List<CategoriaDespesa> findByOrderByDescricaoAsc();
 
     boolean existsByDescricaoIgnoreCase(String descricao);
+
+    boolean existsByIdCategoriaDespesaApi(Long idCategoriaDespesaApi);
 }

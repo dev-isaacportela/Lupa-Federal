@@ -15,6 +15,9 @@ public class Orgao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "id_orgao_api", unique = true, nullable = false)
+    private Long idOrgaoApi;
+
     @Column(name = "codigo_siafi", nullable = false, unique = true, length = 10)
     private String codigoSiafi;
 
@@ -30,27 +33,18 @@ public class Orgao {
         return id;
     }
 
-    public String getCodigoSiafi() {
-        return codigoSiafi;
-    }
+    public Long getIdOrgaoApi() { return idOrgaoApi; }
+    public void setIdOrgaoApi(Long idOrgaoApi) { this.idOrgaoApi = idOrgaoApi; }
 
-    public void setCodigoSiafi(String codigoSiafi) {
-        this.codigoSiafi = codigoSiafi;
-    }
+    public String getCodigoSiafi() { return codigoSiafi; }
 
-    public String getNome() {
-        return nome;
-    }
+    public void setCodigoSiafi(String codigoSiafi) { this.codigoSiafi = codigoSiafi; }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public String getNome() { return nome; }
 
-    public String getSigla() {
-        return sigla;
-    }
+    public void setNome(String nome) { this.nome = nome; }
 
-    public void setSigla(String sigla) {
-        this.sigla = sigla;
-    }
+    public String getSigla() { return sigla; }
+
+    public void setSigla(String sigla) { this.sigla = sigla; }
 }

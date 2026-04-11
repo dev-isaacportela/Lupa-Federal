@@ -33,11 +33,15 @@ public class FornecedorService {
     }
 
     public FornecedorResponse criar(CreateFornecedorRequest request){
+        if(fornecedorRepository.existsByIdFornecedorApi(request.idFornecedorApi())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "ID da API para este Fornecedor já cadastrado!");
+        }
         if(fornecedorRepository.existsByCnpjCpf(request.cnpjCpf())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Número de CNPJ já cadastrado!");
         }
 
         Fornecedor fornecedor = new Fornecedor();
+        fornecedor.setIdFornecedorApi(request.idFornecedorApi());
         fornecedor.setCnpjCpf(request.cnpjCpf());
         fornecedor.setRazaoSocial(request.razaoSocial());
         fornecedor.setTipoPessoa(request.tipoPessoa());

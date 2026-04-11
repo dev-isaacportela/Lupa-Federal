@@ -11,4 +11,6 @@ public interface OrgaoRepository extends JpaRepository<Orgao, Integer> {
     List<Orgao> findAllByOrderByNomeAsc();
 
     boolean existsByCodigoSiafi(String codigoSiafi);
+
+    boolean existsByIdOrgaoApi(Long idOrgaoApi);
 }
