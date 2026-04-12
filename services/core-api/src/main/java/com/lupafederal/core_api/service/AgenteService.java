@@ -28,7 +28,6 @@ public class AgenteService {
         return agenteRepository.findByOrderByNomeAsc()
                 .stream().map(agente -> new AgenteResponse(
                         agente.getId(),
-                        agente.getIdPortalApi(),
                         agente.getNome(),
                         agente.getCpfMascarado(),
                         agente.getOrgao().getId()
@@ -57,7 +56,6 @@ public class AgenteService {
 
         return new AgenteResponse(
                 salvo.getId(),
-                salvo.getIdPortalApi(),
                 salvo.getNome(),
                 salvo.getCpfMascarado(),
                 salvo.getOrgao().getId()
