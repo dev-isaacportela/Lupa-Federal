@@ -9,6 +9,6 @@ public record CreateCategoriaDespesaRequest(
         Long idCategoriaDespesaApi,
 
         @NotBlank
-        @Size(min = 5, message = "O campo deve ter no mínimo 5 caracteres")
+        @Size(min = 5, max = 255,message = "O campo deve ter no mínimo 5 caracteres e no máximo 255 caracteres")
         String descricao
 ) {}

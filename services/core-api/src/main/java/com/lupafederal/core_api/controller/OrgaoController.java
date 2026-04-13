@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,7 +49,7 @@ public class OrgaoController {
     )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public OrgaoResponse criar(@RequestBody CreateOrgaoRequest request) {
+    public OrgaoResponse criar(@RequestBody @Valid CreateOrgaoRequest request) {
         return orgaoService.criar(request);
     }
 }
