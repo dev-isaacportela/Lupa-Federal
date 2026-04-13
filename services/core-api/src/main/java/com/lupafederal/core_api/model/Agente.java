@@ -12,7 +12,7 @@ public class Agente {
     @Column(unique = true)
     private Long idPortalApi;
 
-    @Column(name = "agentes_politicos", length = 255, nullable = false)
+    @Column(name = "nome", length = 255, nullable = false)
     private String nome;
 
     @Column(name = "cpf_mascarado", length = 20)
