@@ -31,7 +31,7 @@ public class IngestDespesaController {
             summary = "Ingestão de despesas",
             description = "Rota para ingestão de despesas"
     )
-    @PostMapping
+    @PostMapping("/despesas")
     @ResponseStatus(HttpStatus.CREATED)
     public IngestDespesaResponse ingerir(@RequestBody @Valid List<IngestDespesaItemRequest> request) {
         return ingestDespesaService.ingerir(request);
