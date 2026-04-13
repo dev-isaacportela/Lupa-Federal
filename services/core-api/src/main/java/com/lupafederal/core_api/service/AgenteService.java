@@ -36,12 +36,12 @@ public class AgenteService {
     }
 
     public AgenteResponse criar(CreateAgenteRequest request) {
-        if(agenteRepository.existsAgentesByIdPortalApi(request.idPortalApi())) {
+        if(agenteRepository.existsAgentesByidAgenteApi(request.idAgenteApi())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Agente já cadastrado!");
         }
 
         Agente agente = new Agente();
-        agente.setIdPortalApi(request.idPortalApi());
+        agente.setidAgenteApi(request.idAgenteApi());
         agente.setNome(request.nome());
         agente.setCpfMascarado(request.cpfMascarado());
 

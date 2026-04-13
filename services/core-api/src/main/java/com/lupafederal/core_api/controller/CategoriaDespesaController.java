@@ -3,6 +3,7 @@ package com.lupafederal.core_api.controller;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,7 +53,7 @@ public class CategoriaDespesaController {
     )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CategoriaDespesaResponse criar(@RequestBody CreateCategoriaDespesaRequest request) {
+    public CategoriaDespesaResponse criar(@RequestBody @Valid CreateCategoriaDespesaRequest request) {
         return categoriaDespesaService.criar(request);
     }
 }

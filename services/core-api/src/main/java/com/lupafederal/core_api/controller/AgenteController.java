@@ -2,6 +2,7 @@ package com.lupafederal.core_api.controller;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,7 +52,7 @@ public class AgenteController {
     )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public AgenteResponse criar(@RequestBody CreateAgenteRequest request) {
+    public AgenteResponse criar(@RequestBody @Valid CreateAgenteRequest request) {
         return agenteService.criar(request);
     }
 }

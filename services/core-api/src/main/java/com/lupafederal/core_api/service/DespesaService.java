@@ -52,10 +52,10 @@ public class DespesaService {
                 predicates.add(cb.equal(root.get("categoria").get("id"), filtro.getIdCategoriaDespesa()));
             }
             if(filtro.getDataInicio() != null) {
-                predicates.add(cb.greaterThanOrEqualTo(root.get("data"), filtro.getDataInicio()));
+                predicates.add(cb.greaterThanOrEqualTo(root.get("dataEmissao"), filtro.getDataInicio()));
             }
             if(filtro.getDataFim() != null) {
-                predicates.add(cb.lessThanOrEqualTo(root.get("data"), filtro.getDataFim()));
+                predicates.add(cb.lessThanOrEqualTo(root.get("dataEmissao"), filtro.getDataFim()));
             }
             if(filtro.getValorMinimo() != null) {
                 predicates.add(cb.ge(root.get("valor"), filtro.getValorMinimo()));
@@ -64,7 +64,7 @@ public class DespesaService {
                 predicates.add(cb.le(root.get("valor"), filtro.getValorMaximo()));
             }
             if(filtro.getNumeroDocumento() != null) {
-                predicates.add(cb.equal(root.get("documento"), filtro.getNumeroDocumento()));
+                predicates.add(cb.equal(root.get("numeroDocumento"), filtro.getNumeroDocumento()));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));

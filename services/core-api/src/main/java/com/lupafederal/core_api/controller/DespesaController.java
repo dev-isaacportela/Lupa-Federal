@@ -40,7 +40,7 @@ public class DespesaController {
     )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public DespesaResponse criar(@RequestBody CreateDespesaRequest request) {
+    public DespesaResponse criar(@RequestBody @Valid CreateDespesaRequest request) {
         return despesaService.criar(request);
     }
 

@@ -10,7 +10,7 @@ public class Agente {
     private Integer id;
 
     @Column(unique = true)
-    private Long idPortalApi;
+    private Long idAgenteApi;
 
     @Column(name = "nome", length = 255, nullable = false)
     private String nome;
@@ -26,8 +26,8 @@ public class Agente {
         return id;
     }
 
-    public Long getIdPortalApi() {
-        return idPortalApi;
+    public Long getidAgenteApi() {
+        return idAgenteApi;
     }
 
     public String getNome() {
@@ -42,8 +42,8 @@ public class Agente {
         return orgao;
     }
 
-    public void setIdPortalApi(Long idPortalApi) {
-        this.idPortalApi = idPortalApi;
+    public void setidAgenteApi(Long idAgenteApi) {
+        this.idAgenteApi = idAgenteApi;
     }
 
     public void setNome(String nome) {
