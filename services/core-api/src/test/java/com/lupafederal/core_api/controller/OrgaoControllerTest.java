@@ -39,7 +39,6 @@ class OrgaoControllerTest {
                 new OrgaoResponse(1, "001", "Ministério da Saúde", "MS")
         ));
 
-        // Act + Assert
         mockMvc.perform(get("/api/v1/orgaos"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].nome").value("Ministério da Saúde"))
