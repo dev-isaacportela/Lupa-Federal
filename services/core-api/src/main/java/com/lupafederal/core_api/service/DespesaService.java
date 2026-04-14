@@ -49,7 +49,7 @@ public class DespesaService {
                 predicates.add(cb.equal(root.get("fornecedor").get("id"), filtro.getIdFornecedor()));
             }
             if(filtro.getIdCategoriaDespesa() != null) {
-                predicates.add(cb.equal(root.get("categoria").get("id"), filtro.getIdCategoriaDespesa()));
+                predicates.add(cb.equal(root.get("categoriaDespesa").get("id"), filtro.getIdCategoriaDespesa()));
             }
             if(filtro.getDataInicio() != null) {
                 predicates.add(cb.greaterThanOrEqualTo(root.get("dataEmissao"), filtro.getDataInicio()));
