@@ -1,5 +1,6 @@
-from fastapi import FastAPI
+from fastapi import Depends, FastAPI
 from pydantic import BaseModel
+from app.core.security import verify_api_key
 from app.core.config import settings
 from app.core.logging import logger
 from app.adapters.portal_http import PortalHttpAdapter
@@ -48,7 +49,7 @@ def health():
     return {"status": "ok"}
 
 
-@app.post("/ingest/despesas")
+@app.post("/ingest/despesas", dependencies=[Depends(verify_api_key)])
 def ingest(request: IngestRequest):
     logger.info(f"Ingestão iniciada: data_emissao={request.data_emissao}, gestao={request.gestao}, fase={request.fase}")
     portal, core = _build_adapters()
@@ -61,7 +62,7 @@ def ingest(request: IngestRequest):
     return resultado
 
 
-@app.post("/ingest/despesas/mes")
+@app.post("/ingest/despesas/mes", dependencies=[Depends(verify_api_key)])
 def ingest_mes(request: IngestMesRequest):
     logger.info(f"Ingestão mensal iniciada: {request.mes:02d}/{request.ano}, gestao={request.gestao}, fase={request.fase}")
     portal, core = _build_adapters()
@@ -75,7 +76,7 @@ def ingest_mes(request: IngestMesRequest):
     return resultado
 
 
-@app.post("/ingest/despesas/ano")
+@app.post("/ingest/despesas/ano", dependencies=[Depends(verify_api_key)])
 def ingest_ano(request: IngestAnoRequest):
     logger.info(f"Ingestão anual iniciada: ano={request.ano}, gestao={request.gestao}, fase={request.fase}")
     portal, core = _build_adapters()

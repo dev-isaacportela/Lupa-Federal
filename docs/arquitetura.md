@@ -64,6 +64,20 @@ lupa-federal/
 
 **core-api** — Arquitetura em camadas (Controller → Service → Repository). Migrações de schema gerenciadas pelo Flyway, sem DDL automático do Hibernate.
 
+## Segurança
+
+### data-ingestion — API Key
+
+Os endpoints `/ingest/*` exigem o header `X-API-Key` com o valor configurado na variável de ambiente `INGESTION_API_KEY`. O endpoint `/health` é público.
+
+| Situação | Resposta |
+|---|---|
+| Header ausente | `422 Unprocessable Entity` |
+| Token inválido | `401 Unauthorized` |
+| `INGESTION_API_KEY` não configurada | `500 Internal Server Error` |
+
+A chave deve ser gerada aleatoriamente e mantida em segredo (não versionar no repositório).
+
 ## Deploy
 
 | Serviço | Plataforma |

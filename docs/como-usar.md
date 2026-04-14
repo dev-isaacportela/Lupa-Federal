@@ -37,7 +37,10 @@ Crie `services/data-ingestion/.env`:
 ```env
 PORTAL_API_KEY=sua_chave_aqui
 CORE_API_URL=http://localhost:8080
+INGESTION_API_KEY=seu_token_aqui
 ```
+
+> Gere um token seguro com: `python -c "import secrets; print(secrets.token_hex(32))"`
 
 ```bash
 python main.py
@@ -52,10 +55,13 @@ npm run dev
 
 ## Ingestão de dados
 
+Todos os endpoints de ingestão exigem autenticação via header `X-API-Key`.
+
 ### Por dia
 ```bash
 curl -X POST http://localhost:8000/ingest/despesas \
   -H "Content-Type: application/json" \
+  -H "X-API-Key: seu_token_aqui" \
   -d '{"data_emissao": "10/01/2024", "gestao": "00001", "fase": 3}'
 ```
 
@@ -63,6 +69,7 @@ curl -X POST http://localhost:8000/ingest/despesas \
 ```bash
 curl -X POST http://localhost:8000/ingest/despesas/mes \
   -H "Content-Type: application/json" \
+  -H "X-API-Key: seu_token_aqui" \
   -d '{"ano": 2024, "mes": 1, "gestao": "00001", "fase": 3}'
 ```
 
@@ -70,6 +77,7 @@ curl -X POST http://localhost:8000/ingest/despesas/mes \
 ```bash
 curl -X POST http://localhost:8000/ingest/despesas/ano \
   -H "Content-Type: application/json" \
+  -H "X-API-Key: seu_token_aqui" \
   -d '{"ano": 2024, "gestao": "00001", "fase": 3}'
 ```
 
@@ -85,12 +93,12 @@ curl -X POST http://localhost:8000/ingest/despesas/ano \
 
 ### data-ingestion (`localhost:8000`)
 
-| Método | Rota | Descrição |
-|---|---|---|
-| GET | `/health` | Health check |
-| POST | `/ingest/despesas` | Ingestão por dia |
-| POST | `/ingest/despesas/mes` | Ingestão por mês |
-| POST | `/ingest/despesas/ano` | Ingestão por ano |
+| Método | Rota | Autenticação | Descrição |
+|---|---|---|---|
+| GET | `/health` | — | Health check |
+| POST | `/ingest/despesas` | `X-API-Key` | Ingestão por dia |
+| POST | `/ingest/despesas/mes` | `X-API-Key` | Ingestão por mês |
+| POST | `/ingest/despesas/ano` | `X-API-Key` | Ingestão por ano |
 
 Documentação interativa: `http://localhost:8000/docs`
 
@@ -112,7 +120,7 @@ Documentação interativa: `http://localhost:8080/swagger-ui.html`
 | Serviço | Plataforma | Variáveis necessárias |
 |---|---|---|
 | `core-api` | Railway | `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD` |
-| `data-ingestion` | Railway | `CORE_API_URL`, `PORTAL_API_KEY` |
+| `data-ingestion` | Railway | `CORE_API_URL`, `PORTAL_API_KEY`, `INGESTION_API_KEY` |
 | `web` | Vercel | `VITE_API_URL` |
 
 Veja o guia completo em [arquitetura.md](./arquitetura.md).
