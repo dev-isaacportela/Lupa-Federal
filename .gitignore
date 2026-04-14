@@ -18,6 +18,7 @@ pnpm-debug.log*
 
 # Python
 services/data-ingestion/.venv/
+services/data-ingestion/.env
 __pycache__/
 .pytest_cache/
 .mypy_cache/
