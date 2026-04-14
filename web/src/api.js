@@ -7,9 +7,10 @@ async function get(path, params = {}) {
   return res.json()
 }
 
-export const fetchCategorias  = () => get('/categorias-despesas')
+export const fetchCategorias   = () => get('/categorias-despesas')
 export const fetchFornecedores = () => get('/fornecedores')
 export const fetchOrgaos       = () => get('/orgaos')
+export const fetchAgentes      = () => get('/agentes')
 
 export function fetchDespesas(filtros = {}) {
   const params = { size: 500, sort: 'dataEmissao,asc' }
